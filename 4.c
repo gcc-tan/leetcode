@@ -46,7 +46,7 @@ i=0时表示left_part为空,i=m表示右半部分为空。j表示的方法同理
 Searching i in [0, m], to find an object `i` that:
     B[j-1] <= A[i] and A[i-1] <= B[j], ( where j = (m + n + 1)/2 - i 这里的+1设计的很巧妙，如果m+n是偶数，+1对j的为是是没有影响的，如果m+n是奇数，+1会让j向有移动一个，也就是我上面提到的left_part+1) 
 
-上面的转换需要两个条件第一个A[i-1]和B[i-1]不存在的边界条件没有考虑，第二个m <= n，这个是为了 j = (m + n +1) / 2的j是一个非负值
+上面的转换需要两个条件第一个A[i-1]和B[i-1]不存在的边界条件没有考虑，第二个m <= n，这个是为了 j = (m + n +1) / 2 - i的j是一个非负值
 
 为了加快查找i的速度，肯定使用二分查找的方式
 
@@ -61,5 +61,72 @@ Searching i in [0, m], to find an object `i` that:
 max(A[i-1], B[j-1]) (when m + n 是奇数)
 or (max(A[i-1], B[j-1]) + min(A[i], B[j]))/2 (when m + n 是偶数)
 
+最后考虑边界条件，其实边界条件很简单，如果i = 0使得A的left_part为空，那么A[i-1] <= B[j]这个条件是肯定满足的，就不用考虑就行。
+
+
+最后给出最终版的三种情况
+
+<a> (j == 0 or i == m or B[j-1] <= A[i]) and
+    (i == 0 or j = n or A[i-1] <= B[j])
+    Means i is perfect, we can stop searching.
+
+<b> j > 0 and i < m and B[j - 1] > A[i]
+    Means i is too small, we must increase it.
+
+<c> i > 0 and j < n and A[i - 1] > B[j]
+    Means i is too big, we must decrease it.
+
+
+Thank @Quentin.chen , him pointed out that: i < m ==> j > 0 and i > 0 ==> j < n . Because:
+
+m <= n, i < m ==> j = (m+n+1)/2 - i > (m+n+1)/2 - m >= (2*m+1)/2 - m >= 0    
+m <= n, i > 0 ==> j = (m+n+1)/2 - i < (m+n+1)/2 <= (2*n+1)/2 <= n
+So in situation <b> and <c>, we don't need to check whether j > 0 and whether j < n.
 
 */
+
+
+
+
+
+#define MIN(a,b) ( (a) < (b) ? (a) : (b) )
+#define MAX(a,b) ( (a) > (b) ? (a) : (b) )
+double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) 
+{
+	int *A,*B,m,n,i,j,max_left,min_right,imin,imax;
+	if(nums1Size < nums2Size)
+	{
+		A = nums1,m = nums1Size;
+		B = nums2,n = nums2Size;
+	}
+	else
+	{
+		A = nums2,m = nums2Size;
+		B = nums1,n = nums1Size;
+	}
+	
+	for(imin = 0,imax = m;;)
+	{
+		i = (imin + imax) / 2;
+		j = (m + n + 1) / 2 - i;
+		if(i < m && B[j-1] > A[i])
+			imin = i + 1;
+		else if(i > 0 && A[i-1] > B[j])
+			imax = i - 1;
+		else
+		{
+			if(i == 0) max_left = B[j-1];
+			else if(j == 0) max_left = A[i-1];
+			else max_left = MAX(A[i-1],B[j-1]);
+
+			if( (m + n) % 2)
+				return max_left;
+
+			if(i == m) min_right = B[j];
+			else if(j == n) min_right = A[i];
+			else min_right = MIN(A[i],B[j]);
+
+			return 1.0 * (max_left + min_right) / 2;
+		}
+	}
+}
