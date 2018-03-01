@@ -94,7 +94,7 @@ So in situation <b> and <c>, we don't need to check whether j > 0 and whether j 
 double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) 
 {
 	int *A,*B,m,n,i,j,max_left,min_right,imin,imax;
-	if(nums1Size < nums2Size)
+	if(nums1Size < nums2Size) //保证m <= n
 	{
 		A = nums1,m = nums1Size;
 		B = nums2,n = nums2Size;
