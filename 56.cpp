@@ -97,7 +97,7 @@ class Object
 	{
 	}
 };
-3. 函数对象，采用定义一个比较对象，将Compare传入第三个参数
+3. 函数对象，采用定义一个比较对象，将Compare对象传入第三个参数
 struct Compare
 {
 	int operator()(const Type &a, const Type &b)
