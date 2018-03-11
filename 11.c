@@ -19,7 +19,7 @@ Start by evaluating the widest container, using the first and the last line. All
 widest container, skip lines at both ends that don't support a higher height. Then evaluate that new container we arrived at. Repeat until there are no more possible containers left.
 
 
-贪心的策略。从最宽的容器开始计算，用第一根线和最后一根线。因为所以其他可能的容器都更窄一些，所以为了装更多的谁，它们需要更高。因此，在计算完了最宽的容器之后。跳过那些不支持更高高度的容器。
+贪心的策略。从最宽的容器开始计算，用第一根线和最后一根线。因为所以其他可能的容器都更窄一些，所以为了装更多的水，它们需要更高。因此，在计算完了最宽的容器之后。跳过那些不支持更高高度的容器。
 然后重新计算新容器的面积。重复上述过程，直到最后没有容器剩余。
 */
 

@@ -87,6 +87,23 @@ void sort( RandomIt first, RandomIt last);
 排序的范围是[first, last)的左开右闭区间
 
 前面两个参数就是迭代器的参数，后一个是比较对象，可以是一个全局的函数，也可以是一个对象，实现了操作符重载(我觉得操作符应该是括号)
+e.g.
+1. 全局函数，将cmp作为第三个参数传递
+int cmp(const Type &a, const Type &b);
+2. 通过重载需要比较对象的<操作符号，这个时候调用sort就不需要提供第三个参数
+class Object
+{
+	int operator < (const Type &a) const
+	{
+	}
+};
+3. 函数对象，采用定义一个比较对象，将Compare传入第三个参数
+struct Compare
+{
+	int operator()(const Type &a, const Type &b)
+	{
+	}
+};
 不管是对象还是函数，函数参数一般是bool cmp(const Type1 &a, const Type2 &b);
 */
 

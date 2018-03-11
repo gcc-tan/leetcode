@@ -134,7 +134,44 @@ int main(int argc, char **argv)
 
 
 
+//c++代码，可能较为清楚
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        unordered_map<char, string> mp =
+        {
+            {'2', "abc"},
+            {'3', "def"},
+            {'4', "ghi"},
+            {'5', "jkl"},
+            {'6', "mno"},
+            {'7', "pqrs"},
+            {'8', "tuv"},
+            {'9', "wxyz"}
+        };
 
+        int i, j, n = digits.size();
+        vector<int> a(digits.size(), 0);
+        vector<string> ans;
+        if (n == 0)
+            return ans;
+        while (a[0] < mp[digits[0]].size())
+        {
+            string tmp;
+            for (i = 0; i < n; ++i)
+                tmp.push_back(mp[digits[i]][a[i]]);
+            ans.push_back(tmp);
+
+            ++a[n-1];
+            for (i = n - 1; i > 0 && a[i] == mp[digits[i]].size(); --i)
+            {
+                a[i] = 0;
+                ++a[i-1];
+            }
+        }
+        return ans;
+    }
+};
 
 
 
