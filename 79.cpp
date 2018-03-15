@@ -61,6 +61,9 @@ public:
 		visit[i][j] = true;
 		if(start >= s.length() || (start + 1 == s.length() && board[i][j] == s[start])) return true;
 		if(board[i][j] != s[start]) return false;
+		/**
+		 * 两个代码的差距在这4个递归的子条件，会进行4次，但是下面的使用短路的||，只要有一个子条件搜索成功就直接返回，放弃剩下的结点
+		 */
 		//上
 		if(i > 0)
 			ans |= dfs(i - 1, j, s, start + 1, board, visit);

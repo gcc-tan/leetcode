@@ -43,7 +43,8 @@ public:
 					min_len = end - begin;
 					head = begin;
 				}
-				if(map[s[begin++]]++ == 0)  cnt++;
+				if(map[s[begin++]]++ == 0)//为了防止t中出现的字符次数比在begin和end中出现出现的次数少，从而漏算了最短的情况
+					cnt++; 
 			}
 		}
 		return min_len == 0x3f3f3f3f ? "" : s.substr(head, min_len);
