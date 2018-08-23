@@ -86,6 +86,8 @@ void sort( RandomIt first, RandomIt last, Compare comp);
 void sort( RandomIt first, RandomIt last);
 排序的范围是[first, last)的左开右闭区间
 
+注意comp的返回值，虽然可以是int，但是其实只有两个有意义的值，true（非0）表示第一个参数比第二个参数小，要排在前面。false则是相反
+
 前面两个参数就是迭代器的参数，后一个是比较对象，可以是一个全局的函数，也可以是一个对象，实现了操作符重载(我觉得操作符应该是括号)
 e.g.
 1. 全局函数，将cmp作为第三个参数传递

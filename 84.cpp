@@ -66,7 +66,7 @@ public:
 			{
 				cur = heights[st.back()];
 				st.pop_back();
-				max_area = max(max_area, cur * (st.empty() ? i : i - st.back() - 1));
+				max_area = max(max_area, cur * (st.empty() ? i : i - st.back() - 1));//st.empty()，在输入为1, 1的情况计算
 			}
 		}
 		heights.pop_back();

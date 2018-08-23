@@ -41,6 +41,7 @@ class Solution
 private:
 	int sum;
 	//cur_max返回以root为顶点的不横跨左右的最大路径，这样保证路径合法.
+	//max_sum返回包括root的最大路径
 	int max_sum(TreeNode *root)
 	{
 		int l, r;
@@ -48,7 +49,7 @@ private:
 		l = max_sum(root->left);
 		r = max_sum(root->right);
 		cur_max = max(max(l + root->val, r + root->val), root->val);
-		sum = max(max(cur_max, r + l + root->val), sum);
+		sum = max(max(cur_max, r + l + root->val), sum); // sum计算利用cur_max，r + l + root->val这以root为顶点，包含左右子树的路径
 		return cur_max;
 	}
 public:
